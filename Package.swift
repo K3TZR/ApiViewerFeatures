@@ -4,25 +4,39 @@
 import PackageDescription
 
 let package = Package(
-    name: "ApiViewerFeatures",
-    products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
-            name: "ApiViewerFeatures",
-            targets: ["ApiViewerFeatures"]),
-    ],
-    dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target(
-            name: "ApiViewerFeatures",
-            dependencies: []),
-        .testTarget(
-            name: "ApiViewerFeaturesTests",
-            dependencies: ["ApiViewerFeatures"]),
-    ]
+  name: "APiViewerFeatures",
+  platforms: [
+    .macOS(.v13),
+  ],
+  
+  products: [
+    .library(name: "MessagesView", targets: ["MessagesView"]),
+    .library(name: "ObjectsView", targets: ["ObjectsView"]),
+  ],
+  
+  dependencies: [
+    // ----- K3TZR -----
+    .package(url: "https://github.com/K3TZR/ApiFeatures.git", branch: "main"),
+    // ----- OTHER -----
+    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.0.0"),
+  ],
+
+  // --------------- Modules ---------------
+  targets: [
+    // MessagesView
+    .target(name: "MessagesView",
+            dependencies: [
+              .product(name: "FlexApi", package: "ApiFeatures"),
+              .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]),
+    
+    // ObjectsView
+    .target(name: "ObjectsView",
+            dependencies: [
+              .product(name: "FlexApi", package: "ApiFeatures"),
+              .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]),
+  ]
+
+  // --------------- Tests ---------------
 )
