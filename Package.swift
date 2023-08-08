@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "APiViewerFeatures",
+  name: "ApiViewerFeatures",
   platforms: [
     .macOS(.v13),
   ],
